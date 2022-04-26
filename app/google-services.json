@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "162761000437",
+    "project_id": "aquaservices-e9167",
+    "storage_bucket": "aquaservices-e9167.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:162761000437:android:60f3a0f3430af0003c0cbc",
+        "android_client_info": {
+          "package_name": "com.example.aquaservices"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "162761000437-p5tphpkc42p37sc2r3ku3l2c00oc889n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBX8lPblyct7Wxy9uHFgAYm9xN_gKX6rGk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "162761000437-p5tphpkc42p37sc2r3ku3l2c00oc889n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
