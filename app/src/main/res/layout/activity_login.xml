@@ -22,8 +22,10 @@
       android:layout_height="wrap_content"
       android:ems="10"
       android:hint="Usuario"
+      android:gravity="center"
       android:textColorHint="@color/high_blue"
       android:inputType="textEmailAddress"
+      android:textColor="@color/black"
       android:layout_marginHorizontal="15dp"
       android:layout_marginVertical="15dp"/>
 
@@ -33,13 +35,15 @@
       android:layout_height="wrap_content"
       android:ems="10"
       android:hint="Contraseña"
+      android:gravity="center"
+      android:textColor="@color/black"
       android:textColorHint="@color/high_blue"
       android:inputType="textPassword"
       android:layout_marginHorizontal="15dp"
       android:layout_marginVertical="15dp"/>
 
   <Button
-      android:id="@+id/button"
+      android:id="@+id/loginButton"
       android:layout_width="150dp"
       android:layout_height="wrap_content"
       android:text="Ingresar"
