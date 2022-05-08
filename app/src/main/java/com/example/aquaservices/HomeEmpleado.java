@@ -7,10 +7,14 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.aquaservices.models.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -22,47 +26,103 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class HomeEmpleado extends AppCompatActivity {
 
-    private Button buttonSignOut;
+    // Elements
+    private Button buttonRegContadores;
+    private Button buttonRegDeposito;
+    private Button buttonRegVisita;
+    // Modelos
+    private Map<String, String> mapUsuario;
     // Firebase
     private FirebaseAuth mAuth;
-    private DatabaseReference usersRef;
-    private DataSnapshot dataSnapshot;
-
-    public static String dataSnapshotUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_empleado);
 
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().
+                child("usuarios").child(mAuth.getCurrentUser().getUid());
 
-        buttonSignOut = findViewById(R.id.button);
+        // Vistas
+        buttonRegContadores = findViewById(R.id.buttonRegContadores);
+        buttonRegDeposito = findViewById(R.id.buttonRegDeposito);
+        buttonRegVisita = findViewById(R.id.buttonRegVisita);
+        buttonRegContadores.setOnClickListener(listener);
+        buttonRegDeposito.setOnClickListener(listener);
+        buttonRegVisita.setOnClickListener(listener);
+        // Vars
         mAuth = mAuth.getInstance();
-        usersRef = FirebaseDatabase.getInstance().getReference().child("usuarios").child(mAuth.getCurrentUser().getUid());
+        mapUsuario = new HashMap<>();
 
-        // Aquí realizar el progress dialog
-        usersRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                    Toast.makeText(HomeEmpleado.this,"Error getting data"+ task.getException(), Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                    dataSnapshot = task.getResult();
-                    Toast.makeText(HomeEmpleado.this, "asdf"+dataSnapshot.toString(), Toast.LENGTH_SHORT).show();
-                }
+        obtenerInfoUsuario(userRef);
+
+
+    }
+
+    private View.OnClickListener listener = new View.OnClickListener() {
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.buttonRegContadores:
+                    Toast.makeText(HomeEmpleado.this, "Contadores", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.buttonRegDeposito:
+                    Toast.makeText(HomeEmpleado.this, "Deposito", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.buttonRegVisita:
+                    Toast.makeText(HomeEmpleado.this, "Visita", Toast.LENGTH_SHORT).show();
+                    break;
+                default:
+                    break;
+
             }
-        });
+        }
+    };
 
-        buttonSignOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.activity_home_empleado, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.action_logout:
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(HomeEmpleado.this, LoginActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void obtenerInfoUsuario(DatabaseReference userRef) {
+        AlertDialog dialogGetData = Globals.infoAlertDialog(HomeEmpleado.this,
+                "Obteniendo información...");
+        dialogGetData.setCancelable(false);
+        dialogGetData.show();
+        userRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (task.isSuccessful()) {
+                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                    DataSnapshot dataSnapshot = task.getResult();
+                    mapUsuario = (HashMap<String, String>) dataSnapshot.getValue();
+                    setTitle("Usuario: "+mapUsuario.get("nombre"));
+                    dialogGetData.dismiss();
+                } else {
+                    Log.e("firebase", "Error getting data", task.getException());
+                    Toast.makeText(HomeEmpleado.this,"Error getting data"+ task.getException(),
+                            Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

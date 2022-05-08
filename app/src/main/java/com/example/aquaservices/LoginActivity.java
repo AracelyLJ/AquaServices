@@ -18,6 +18,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -45,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                 } else if (editTextTextPassword.getText().toString().matches("")){
                     editTextTextPassword.setError("Campo requerido.");
                 } else {
-                    startLogin(editTextTextEmailAddress.getText().toString(), editTextTextPassword.getText().toString());
+                    startLoginProcess(editTextTextEmailAddress.getText().toString(), editTextTextPassword.getText().toString());
                 }
 
             }
@@ -62,28 +69,50 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public void startLogin(String email, String password) {
-        Toast.makeText(this, "iniciar sesion", Toast.LENGTH_SHORT).show();
+
+    public void startLoginProcess(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-
-                            AlertDialog welDialog = Globals.infoAlertDialog(LoginActivity.this, "Iniciando sesión...");
-                            welDialog.show();
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("Success signin", "signInWithEmail:success");
-                            startActivity(new Intent(LoginActivity.this, HomeEmpleado.class));
-                            welDialog.dismiss();
+                            goToHomeActivity();
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w("Fail signin", "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            Log.w("Fail sign in", "signInWithEmail:failure", task.getException());
+                            AlertDialog al = Globals.confirmAlertDialog(LoginActivity.this,
+                                    "Email o contraseña erróneos. Intente de nuevo.");
+                            al.show();
                         }
                     }
                 });
     }
+
+    public void goToHomeActivity() {
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().
+                child("usuarios").child(mAuth.getCurrentUser().getUid());
+        usersRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (task.isSuccessful()) {
+                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                    DataSnapshot dataSnapshot = task.getResult();
+                    Map<String, String> mapUsuario = (HashMap<String, String>) dataSnapshot.getValue();
+                    if (mapUsuario.get("rol").equals("admin")) {
+                        startActivity(new Intent(LoginActivity.this, HomeAdmin.class));
+                    } else {
+                        startActivity(new Intent(LoginActivity.this, HomeEmpleado.class));
+                    }
+                } else {
+                    Log.e("firebase", "Error getting data", task.getException());
+                    Toast.makeText(LoginActivity.this,"Error getting data"+ task.getException(),
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
 
 }

@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AquaServices">
-        <activity android:name=".HomeEmpleado"></activity>
+        <activity android:name=".HomeAdmin"></activity>
         <activity
             android:name=".SplashActivity"
             android:theme="@style/SplashTheme">
@@ -23,6 +23,7 @@
             android:name=".LoginActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".HomeEmpleado" />
     </application>
 
 </manifest>

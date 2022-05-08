@@ -4,13 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     tools:context=".HomeEmpleado">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="223dp"
-        tools:layout_editor_absoluteY="284dp" />
+    <LinearLayout
+        android:layout_width="284dp"
+        android:layout_height="404dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/buttonRegContadores"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="REGISTRAR CONTADORES" />
+
+        <Button
+            android:id="@+id/buttonRegDeposito"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="REGISTRAR DEPÓSITO" />
+
+        <Button
+            android:id="@+id/buttonRegVisita"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="REGISTRAR VISITA" />
+    </LinearLayout>
 </LinearLayout>
