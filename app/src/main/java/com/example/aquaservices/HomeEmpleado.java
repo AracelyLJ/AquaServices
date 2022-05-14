@@ -45,9 +45,6 @@ public class HomeEmpleado extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_empleado);
 
-        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().
-                child("usuarios").child(mAuth.getCurrentUser().getUid());
-
         // Vistas
         buttonRegContadores = findViewById(R.id.buttonRegContadores);
         buttonRegDeposito = findViewById(R.id.buttonRegDeposito);
@@ -58,6 +55,8 @@ public class HomeEmpleado extends AppCompatActivity {
         // Vars
         mAuth = mAuth.getInstance();
         mapUsuario = new HashMap<>();
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().
+                child("usuarios").child(mAuth.getCurrentUser().getUid());
 
         obtenerInfoUsuario(userRef);
 
@@ -68,7 +67,8 @@ public class HomeEmpleado extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.buttonRegContadores:
-                    Toast.makeText(HomeEmpleado.this, "Contadores", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(HomeEmpleado.this, "Contadores", Toast.LENGTH_SHORT).show()<
+                    startActivity(new Intent(HomeEmpleado.this, QRCodeReader.class));
                     break;
                 case R.id.buttonRegDeposito:
                     Toast.makeText(HomeEmpleado.this, "Deposito", Toast.LENGTH_SHORT).show();
