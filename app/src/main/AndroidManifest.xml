@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AquaServices">
-        <activity android:name=".RegistrarContador"></activity>
+        <activity android:name=".admin_activities.ActivitySucursales"></activity>
+        <activity android:name=".RegistrarContador" />
 
         <meta-data
             android:name="com.google.mlkit.vision.DEPENDENCIES"

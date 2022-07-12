@@ -3,11 +3,18 @@ package com.example.aquaservices.models;
 public class Sucursal {
 
     private String id;
-    private String key;
     private String nombre;
-    private String ciudad;
     private String ubicacion;
-    private String observaciones;
+    private String tipo_renta;
+    private String monto_renta;
+
+    public Sucursal(String id, String nombre, String ubicacion, String tipo_renta, String monto_renta) {
+        this.id = id;
+        this.nombre = nombre;
+        this.ubicacion = ubicacion;
+        this.tipo_renta = tipo_renta;
+        this.monto_renta = monto_renta;
+    }
 
     public String getId() {
         return id;
@@ -15,14 +22,6 @@ public class Sucursal {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
     }
 
     public String getNombre() {
@@ -33,14 +32,6 @@ public class Sucursal {
         this.nombre = nombre;
     }
 
-    public String getCiudad() {
-        return ciudad;
-    }
-
-    public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
-    }
-
     public String getUbicacion() {
         return ubicacion;
     }
@@ -49,11 +40,19 @@ public class Sucursal {
         this.ubicacion = ubicacion;
     }
 
-    public String getObservaciones() {
-        return observaciones;
+    public String getTipo_renta() {
+        return tipo_renta;
     }
 
-    public void setObservaciones(String observaciones) {
-        this.observaciones = observaciones;
+    public void setTipo_renta(String tipo_renta) {
+        this.tipo_renta = tipo_renta;
+    }
+
+    public String getMonto_renta() {
+        return monto_renta;
+    }
+
+    public void setMonto_renta(String monto_renta) {
+        this.monto_renta = monto_renta;
     }
 }
