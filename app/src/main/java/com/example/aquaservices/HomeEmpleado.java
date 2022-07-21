@@ -90,7 +90,6 @@ public class HomeEmpleado extends AppCompatActivity {
         inflater.inflate(R.menu.activity_home_empleado, menu);
         return super.onCreateOptionsMenu(menu);
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle presses on the action bar items
