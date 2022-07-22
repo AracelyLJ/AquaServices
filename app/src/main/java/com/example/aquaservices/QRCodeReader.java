@@ -3,6 +3,8 @@ package com.example.aquaservices;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +12,16 @@ import android.widget.Toast;
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
+import com.example.aquaservices.admin_activities.ActivitySucursales;
+import com.example.aquaservices.models.Sucursal;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 // source: https://github.com/yuriy-budiyev/code-scanner
 public class QRCodeReader extends AppCompatActivity {
@@ -29,8 +41,11 @@ public class QRCodeReader extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(QRCodeReader.this, result.getText(), Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(QRCodeReader.this, RegistrarContador.class));
+                        // Toast.makeText(QRCodeReader.this, result.getText(), Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(QRCodeReader.this, RegistrarContador.class);
+                        String r = result.getText();
+                        i.putExtra("id_maquina",r);
+                        startActivity(i);
                     }
                 });
             }
@@ -53,4 +68,5 @@ public class QRCodeReader extends AppCompatActivity {
         mCodeScanner.releaseResources();
         super.onPause();
     }
+
 }

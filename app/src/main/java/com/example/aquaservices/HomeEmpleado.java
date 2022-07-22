@@ -67,7 +67,6 @@ public class HomeEmpleado extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.buttonRegContadores:
-//                    Toast.makeText(HomeEmpleado.this, "Contadores", Toast.LENGTH_SHORT).show()<
                     startActivity(new Intent(HomeEmpleado.this, QRCodeReader.class));
                     break;
                 case R.id.buttonRegDeposito:

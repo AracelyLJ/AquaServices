@@ -2,11 +2,23 @@ package com.example.aquaservices.models;
 
 public class Maquina {
     private String id;
-    private String nombre;
-    private String alias;
-    private String imagen;
-    private String renta;
-    private String obseraciones;
+    private String contador;
+    private String sucursal;
+    private String tipo;
+
+    public Maquina(String id) {
+        this.id = id;
+        this.contador = "0";
+        this.sucursal = "0";
+        this.tipo = "garrafon";
+    }
+
+    public Maquina(String id, String contador, String sucursal, String tipo) {
+        this.id = id;
+        this.contador = contador;
+        this.sucursal = sucursal;
+        this.tipo = tipo;
+    }
 
     public String getId() {
         return id;
@@ -16,43 +28,37 @@ public class Maquina {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getContador() {
+        return contador;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setContador(String contador) {
+        this.contador = contador;
     }
 
-    public String getAlias() {
-        return alias;
+    public String getSucursal() {
+        return sucursal;
     }
 
-    public void setAlias(String alias) {
-        this.alias = alias;
+    public void setSucursal(String sucursal) {
+        this.sucursal = sucursal;
     }
 
-    public String getImagen() {
-        return imagen;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setImagen(String imagen) {
-        this.imagen = imagen;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
-    public String getRenta() {
-        return renta;
-    }
-
-    public void setRenta(String renta) {
-        this.renta = renta;
-    }
-
-    public String getObseraciones() {
-        return obseraciones;
-    }
-
-    public void setObseraciones(String obseraciones) {
-        this.obseraciones = obseraciones;
+    @Override
+    public String toString() {
+        return "Maquina{" +
+                "id='" + id + '\'' +
+                ", contador='" + contador + '\'' +
+                ", sucursal='" + sucursal + '\'' +
+                ", tipo='" + tipo + '\'' +
+                '}';
     }
 }
